@@ -15,15 +15,76 @@
 , pytest-sanic
 , pytest-sugar
 , pytest-benchmark
+
+# required just httpcore / requests-async
+, h11
+, h2
+, certifi
+, chardet
+, idna
+, requests
+, rfc3986
+, uvicorn
 }:
+
+let
+
+  # This version of sanic depends on two packages that have been deprecated by
+  # their development teams:
+  #
+  # - requests-async [where first line of pypi says to use `http3` instead now]
+  # - httpcore       [where the homepage redirects to `http3` now]
+  #
+  # Since no other packages in nixpkg depend on these right now, define these
+  # packages just as local dependencies here, to avoid bloat.
+
+  httpcore = buildPythonPackage rec {
+    pname = "httpcore";
+    version = "0.3.0";
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "0n3bamaixxhcm27gf1ws3g6rkamvqx87087c88r6hyyl52si1ycn";
+    };
+
+    propagatedBuildInputs = [ certifi chardet h11 h2 idna rfc3986 ];
+
+    # relax pinned old version of h11
+    postConfigure = ''
+      substituteInPlace setup.py \
+        --replace "h11==0.8.*" "h11"
+      '';
+
+    # LICENCE.md gets propagated without this, causing collisions
+    postInstall = ''
+      rm $out/LICENSE.md
+    '';
+  };
+
+  requests-async = buildPythonPackage rec {
+    pname = "requests-async";
+    version = "0.5.0";
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "8731420451383196ecf2fd96082bfc8ae5103ada90aba185888499d7784dde6f";
+    };
+
+    propagatedBuildInputs = [ requests httpcore ];
+
+    # LICENCE.md gets propagated without this, causing collisions
+    postInstall = ''
+      rm $out/LICENSE.md
+    '';
+  };
+
+in
 
 buildPythonPackage rec {
   pname = "sanic";
-  version = "19.3.1";
+  version = "19.6.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "ce434eb154872ca64493a6c3a288f11fd10bca0de7be7bf9f1d0d063185e51ec";
+    sha256 = "0b1qqsvdjkibrw5kgr0pm7n7jzb1403132wjmb0lx3k5wyvqfi95";
   };
 
   propagatedBuildInputs = [
@@ -31,6 +92,7 @@ buildPythonPackage rec {
     aiofiles
     websockets
     multidict
+    requests-async
     uvloop
     ujson
   ];
@@ -44,12 +106,8 @@ buildPythonPackage rec {
     pytest-sanic
     pytest-sugar
     pytest-benchmark
+    uvicorn
   ];
-
-  postConfigure = ''
-    substituteInPlace setup.py \
-      --replace "websockets>=6.0,<7.0" "websockets"
-  '';
 
   # 10/500 tests ignored due to missing directory and
   # requiring network access
