@@ -35,6 +35,11 @@ buildPythonPackage rec {
 
   patches = [ ./setup.patch ];
 
+  # LICENCE.md gets propagated without this, causing collisions
+  postInstall = ''
+    rm $out/LICENSE.md
+  '';
+
   meta = with lib; {
     homepage = https://www.uvicorn.org/;
     description = "The lightning-fast ASGI server";

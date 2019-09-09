@@ -2,7 +2,7 @@ diff --git a/setup.py b/setup.py
 index 802cda4..561abf4 100755
 --- a/setup.py
 +++ b/setup.py
-@@ -42,7 +42,7 @@ env_marker = (
+@@ -42,10 +42,10 @@ env_marker = (
  
  requirements = [
      "click==7.*",
@@ -10,4 +10,8 @@ index 802cda4..561abf4 100755
 +    "h11",
      "websockets==7.*",
      "httptools==0.0.13 ;" + env_marker,
-     "uvloop==0.12.* ;" + env_marker,
+-    "uvloop==0.12.* ;" + env_marker,
++    "uvloop ;" + env_marker,
+ ]
+ 
+ 
