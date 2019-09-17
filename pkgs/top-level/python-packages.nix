@@ -685,6 +685,8 @@ in {
 
   inquirer = callPackage ../development/python-modules/inquirer { };
 
+  janus = callPackage ../development/python-modules/janus { };
+
   jira = callPackage ../development/python-modules/jira { };
 
   jwcrypto = callPackage ../development/python-modules/jwcrypto { };
