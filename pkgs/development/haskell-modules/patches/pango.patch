@@ -1,0 +1,11 @@
+--- pango-0.13.8.0.orig/pango.cabal	2020-02-06 09:21:18.000000000 +0000
++++ pango-0.13.8.0/pango.cabal	2020-02-10 13:50:39.000000000 +0000
+@@ -80,7 +80,7 @@
+         include-dirs:   .
+         cpp-options:    -U__BLOCKS__ -DGLIB_DISABLE_DEPRECATION_WARNINGS
+         if os(darwin) || os(freebsd)
+-          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn=
++          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn= -D__attribute__(x)=
+         if os(windows)
+           cpp-options: -D__USE_MINGW_ANSI_STDIO=1
+         -- Pango 1.26 has a mysterious bug that makes it go into an infinite

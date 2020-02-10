@@ -1,0 +1,11 @@
+--- gtk-0.15.4.orig/gtk.cabal	2020-02-10 14:06:43.127665911 +0000
++++ gtk-0.15.4/gtk.cabal	2020-02-10 14:07:16.428620883 +0000
+@@ -383,7 +383,7 @@
+         include-dirs:   .
+         cpp-options: -U__BLOCKS__ -DGLIB_DISABLE_DEPRECATION_WARNINGS
+         if os(darwin) || os(freebsd)
+-          cpp-options: -D_Nullable= -D_Nonnull=
++          cpp-options: -D_Nullable= -D_Nonnull= -D__attribute__(x)=
+         if !flag(deprecated)
+           cpp-options:  -DDISABLE_DEPRECATED
+         else

@@ -1389,4 +1389,10 @@ self: super: {
   # prettyprinter-1.6.0 fails its doctest suite.
   prettyprinter_1_6_0 = dontCheck super.prettyprinter_1_6_0;
 
+  # gtk2hs packages
+  glib = appendPatch super.glib ./patches/glib.patch;
+  gio = appendPatch super.gio ./patches/gio.patch;
+  gtk = appendPatch super.gtk ./patches/gtk.patch;
+  pango = appendPatch super.pango ./patches/pango.patch;
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

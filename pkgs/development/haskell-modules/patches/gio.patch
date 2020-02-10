@@ -1,0 +1,11 @@
+--- gio-0.13.8.0.orig/gio.cabal	2001-09-09 02:46:40.000000000 +0100
++++ gio-0.13.8.0/gio.cabal	2020-02-10 14:00:42.862289843 +0000
+@@ -83,7 +83,7 @@
+ 
+         cpp-options:    -U__BLOCKS__ -Ubool -DGLIB_DISABLE_DEPRECATION_WARNINGS
+         if os(darwin) || os(freebsd)
+-          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn=
++          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn= -D__attribute__(x)=
+ 
+         x-Signals-File:  System/GIO/Signals.chs
+         x-Signals-Modname: System.GIO.Signals

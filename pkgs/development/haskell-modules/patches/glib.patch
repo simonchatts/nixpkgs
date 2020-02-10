@@ -1,0 +1,12 @@
+--- glib-0.13.8.0.orig/glib.cabal	2020-02-04 15:43:11.859578591 +0000
++++ glib-0.13.8.0/glib.cabal	2020-02-04 15:43:26.206164126 +0000
+@@ -43,7 +43,7 @@
+                         containers
+         cpp-options:    -U__BLOCKS__ -DGLIB_DISABLE_DEPRECATION_WARNINGS
+         if os(darwin) || os(freebsd)
+-          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn=
++          cpp-options: -D_Nullable= -D_Nonnull= -D_Noreturn= -D__attribute__(x)=
+         if flag(closure_signals)
+           cpp-options:  -DUSE_GCLOSURE_SIGNALS_IMPL
+           c-sources: System/Glib/hsgclosure.c
+
